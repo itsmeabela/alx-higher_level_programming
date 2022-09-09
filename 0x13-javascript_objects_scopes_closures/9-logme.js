@@ -1,6 +1,7 @@
 #!/usr/bin/node
-// Prints number of argumrnts already printed and new value
+
+let nbArgs = 0;
 exports.logMe = function (item) {
-  this.times = (this.times || 0) + 1;
-  console.log(`${this.times - 1}: ${item}`);
+  console.log(nbArgs + ': ' + item);
+  nbArgs++;
 };
