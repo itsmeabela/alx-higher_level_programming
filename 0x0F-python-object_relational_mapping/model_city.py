@@ -1,21 +1,21 @@
 #!/usr/bin/python3
 """
-Defines class City
+State class:
+	inherits from Base Tips
+	links to the MySQL table states
+	attributes:
+		id that represents a column of an auto-generated, unique integer, can’t be null and is a primary key
+		name that represents a column of a string with maximum 128 characters and can’t be null
 """
 
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from model_state import Base, State
 
 Base = declarative_base()
 
+class State(Base):
+    """ defining class """
 
-class City(Base):
-    """
-    Class City; instance of Base
-    Linked to MySQL table "city"
-    """
-    __tablename__ = "cities"
-    id = Column(Integer, nullable=False, primary_key=True)  # autoincrements
+    __tablename__ = 'states'
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(128), nullable=False)
-    state_id = Column(Integer, ForeignKey(State.id), nullable=False)

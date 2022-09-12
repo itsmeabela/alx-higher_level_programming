@@ -1,35 +1,25 @@
 #!/usr/bin/python3
 """
-create state "California" with city attribute "San Francisco"
-parameters given to script: username, password, database
+All states via SQLAlchemy
 """
-
 from sys import argv
 from relationship_state import Base, State
 from relationship_city import City
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
+from sqlalchemy import (create_engine)
+from sqlalchemy.orm import Session
 
 if __name__ == "__main__":
-
-    # make engine for database
-    user = argv[1]
-    passwd = argv[2]
-    db = argv[3]
     engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.
-                           format(user, passwd, db), pool_pre_ping=True)
+                           format(argv[1], argv[2], argv[3]),
+                           pool_pre_ping=True)
     Base.metadata.create_all(engine)
-    Session = sessionmaker(bind=engine)
-    session = Session()
 
-    # create state "California" with city attribute "San Francisco"
-    new_s = State(name="California")
-    new_c = City(name="San Francisco")
-    new_s.cities.append(new_c)
+    session = Session(engine)
+    new_state = State(name='California')
 
-    session.add(new_s)
-    session.add(new_c)
+    new_city = City(name='San Francisco')
+    new_state.cities.append(new_city)
 
+    session.add(new_state)
     session.commit()
     session.close()
