@@ -1,35 +1,27 @@
 #!/usr/bin/python3
-
 """
-    A script that lists all states from the database hbtn_0e_0_usa
-    starting with capital letter N
-    Username, password and database names are given as user args
+Script that takes in an argument and displays all values in the states
+table of hbtn_0e_0_usa where name matches the argument
 """
-
-
-import sys
 import MySQLdb
+from sys import argv
 
-
+# The code should not be executed when imported
 if __name__ == '__main__':
-    db = MySQLdb.connect(user=sys.argv[1],
-                         passwd=sys.argv[2],
-                         db=sys.argv[3],
-                         host='localhost',
-                         port=3306)
 
-    cursor = db.cursor()
+    # make a connection to the database
+    db = MySQLdb.connect(host="localhost", port=3306, user=argv[1],
+                         passwd=argv[2], db=argv[3])
 
-    sql = """ SELECT * FROM states
-          WHERE name LIKE BINARY '{}'
-          ORDER BY id ASC """.format(sys.argv[4])
+    # It gives us the ability to have multiple seperate working environments
+    # through the same connection to the database.
+    cur = db.cursor()
+    nmeSr = "SELECT * FROM states WHERE name LIKE BINARY '{}'".format(argv[4])
+    cur.execute(nmeSr)
 
-    cursor.execute(sql)
-
-    data = cursor.fetchall()
-
-    for row in data:
-        print(row)
-
-    cursor.close()
+    rows = cur.fetchall()
+    for i in rows:
+        print(i)
+    # Clean up process
+    cur.close()
     db.close()
