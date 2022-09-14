@@ -22,6 +22,7 @@ if __name__ == '__main__':
     for i in rows:
         j.append(i[1])
     print(", ".join(j))
+
     # Clean up process
     cur.close()
     db.close()
