@@ -1,12 +1,9 @@
 #!/usr/bin/python3
-"""
-given URL as parameter, fetch URL and display value from reponse header
-usage: ./5-hbtn_header https://intranet.hbtn.io
-"""
-from sys import argv
+""" Uses requests module yo get header info. """
+
 import requests
+from sys import argv
 
-
-if __name__ == "__main__":
-    r = requests.get(argv[1])
-    print(r.headers.get('X-Request-Id'))
+if __name__ == '__main__':
+    response = requests.get(argv[1])
+    print(response.headers.get('X-Request-Id'))

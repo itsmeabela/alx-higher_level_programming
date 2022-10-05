@@ -1,15 +1,17 @@
 #!/usr/bin/python3
 """
-given URL & email as params, display response body utf-8, print error codes
-usage: ./3-error_code.py http://0.0.0.0:5000/status_401
+Takes in URL, sends request to it
+and displays body of response decoded in utf-8.
 """
+
+import urllib.request as request
+import urllib.parse as parse
+from urllib import error
 from sys import argv
-import urllib.request
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     try:
-        with urllib.request.urlopen(argv[1]) as response:
-            print(response.read().decode('utf-8'))
-    except urllib.error.HTTPError as e:
+        with request.urlopen(argv[1]) as r:
+            print(r.read().decode('utf-8'))
+    except error.HTTPError as e:
         print("Error code: {}".format(e.code))
