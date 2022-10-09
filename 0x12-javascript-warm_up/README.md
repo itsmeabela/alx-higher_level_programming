@@ -1,1 +1,1 @@
-## alx first JavaScript - Warm up
+Javascript Warm Up
