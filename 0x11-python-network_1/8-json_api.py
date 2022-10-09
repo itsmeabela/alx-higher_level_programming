@@ -1,18 +1,26 @@
 #!/usr/bin/python3
-"""Script that sends a POST request with data in the variable q"""
-
-import requests
+"""
+given letter as param, POST to http://0.0.0.0:5000/search_user
+usage: ./8-json_api.py [letter only]
+"""
 from sys import argv
+import requests
 
-if __name__ == '__main__':
-    url = "http://0.0.0.0:5000/search_user"
-    data = {"q": argv[1][0] if len(argv) > 1 else ""}
-    response = requests.post(url, data=data)
+
+if __name__ == "__main__":
+    if len(argv) < 2:
+        letter = ""
+    else:
+        letter = argv[1]
+    url = 'http://0.0.0.0:5000/search_user'
+    payload = {'q': letter}
+    r = requests.post(url, data=payload)
+
     try:
-        d = response.json()
-        if not d:
-            print("No result")
+        dic = r.json()
+        if dic:
+            print("[{}] {}".format(dic.get('id'), dic.get('name')))
         else:
-            print("[{}] {}".format(d.get("id"), d.get("name")))
-    except ValueError:
+            print("No result")
+    except ValueError as e:
         print("Not a valid JSON")
