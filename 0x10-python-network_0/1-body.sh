@@ -1,3 +1,3 @@
 #!/bin/bash
-# script that takes in a URL, sends GET and displays body of response
-curl -sLX GET "$1"
+# Take in URL, display body of a 200 response; Usage: ./1-body.sh 5B0.0.0.0:5000/route_1 ; echo ""
+curl -sL "$1"
